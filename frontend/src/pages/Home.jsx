@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { api } from "../api.js";
+import { api, assetUrl } from "../api.js";
 
 const empty = {
   name: "",
@@ -94,7 +94,7 @@ export default function Home() {
         <div className="gallery">
           {images.length ? (
             <>
-              <img className="hero-img" src={images[activeImg]} alt={selectedType?.name || "Jersey"} />
+              <img className="hero-img" src={assetUrl(images[activeImg])} alt={selectedType?.name || "Jersey"} />
               {images.length > 1 && (
                 <div className="thumbs">
                   {images.map((src, i) => (
@@ -104,7 +104,7 @@ export default function Home() {
                       onClick={() => setActiveImg(i)}
                       type="button"
                     >
-                      <img src={src} alt="" />
+                      <img src={assetUrl(src)} alt="" />
                     </button>
                   ))}
                 </div>

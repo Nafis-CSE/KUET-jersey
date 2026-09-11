@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, setToken } from "../api.js";
+import { api, assetUrl, setToken } from "../api.js";
 
 const blankSize = { code: "", chest: "", length: "" };
 
@@ -231,7 +231,7 @@ export default function AdminDashboard() {
                 <div className="thumbs admin-thumbs">
                   {(t.images || []).map((src) => (
                     <div key={src} className="img-chip">
-                      <img src={src} alt="" />
+                      <img src={assetUrl(src)} alt="" />
                       <button type="button" onClick={() => removeImg(src, t.id)}>
                         Remove
                       </button>
