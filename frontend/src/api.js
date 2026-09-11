@@ -1,4 +1,10 @@
 const TOKEN_KEY = "kuet_jersey_admin_token";
+const API_BASE = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+
+export function assetUrl(path) {
+  if (!path || /^https?:\/\//i.test(path)) return path;
+  return `${API_BASE}${path}`;
+}
 
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY) || "";
@@ -17,7 +23,7 @@ async function request(path, options = {}) {
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(path, { ...options, headers });
+  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     const err = new Error(data.error || "Request failed");
