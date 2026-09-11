@@ -40,6 +40,10 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: "2mb" }));
 app.use("/uploads", express.static(UPLOAD_DIR));
 
+app.get("/", (_req, res) => {
+  res.json({ ok: true, service: "kuet-jersey-api" });
+});
+
 function auth(req, res, next) {
   const header = req.headers.authorization || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : null;
