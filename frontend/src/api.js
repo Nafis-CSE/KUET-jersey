@@ -64,6 +64,10 @@ export const api = {
       method: "PATCH",
       body: JSON.stringify(body),
     }),
+  deleteOrder: (id) =>
+    request(`/api/admin/orders/${id}`, {
+      method: "DELETE",
+    }),
   changePassword: (body) =>
     request("/api/admin/password", { method: "POST", body: JSON.stringify(body) }),
 };

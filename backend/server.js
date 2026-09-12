@@ -326,6 +326,15 @@ app.get("/api/admin/orders", auth, (req, res) => {
   });
 });
 
+app.delete("/api/admin/orders/:id", auth, (req, res) => {
+  const data = db.read();
+  const index = data.orders.findIndex((o) => o.id === req.params.id);
+  if (index === -1) return res.status(404).json({ error: "Order not found." });
+  data.orders.splice(index, 1);
+  db.write(data);
+  res.json({ ok: true });
+});
+
 app.patch("/api/admin/orders/:id", auth, (req, res) => {
   const { status, provided } = req.body || {};
   const data = db.read();

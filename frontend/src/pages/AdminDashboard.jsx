@@ -140,6 +140,19 @@ export default function AdminDashboard() {
     await loadOrders();
   }
 
+  async function removeOrder(order) {
+    if (!window.confirm(`Remove the response from ${order.name}? This cannot be undone.`)) return;
+    setErr("");
+    setMsg("");
+    try {
+      await api.deleteOrder(order.id);
+      await loadOrders();
+      setMsg("Response removed.");
+    } catch (ex) {
+      setErr(ex.message);
+    }
+  }
+
   async function changePw(e) {
     e.preventDefault();
     setErr("");
@@ -467,6 +480,9 @@ export default function AdminDashboard() {
                           Pending
                         </button>
                       )}
+                      <button type="button" onClick={() => removeOrder(o)}>
+                        Remove
+                      </button>
                     </td>
                   </tr>
                 ))}
